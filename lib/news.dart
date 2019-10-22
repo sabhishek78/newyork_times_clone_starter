@@ -27,7 +27,7 @@ class Article {
 
   Article.fromJson(Map<String, dynamic> articleJson)
       : source = Source.fromJson(articleJson['source']),
-        author = articleJson['author'],
+        author = articleJson['source']['name'],
         title = articleJson['title'],
         description = articleJson['description'],
         urlToImage = articleJson['urlToImage'],

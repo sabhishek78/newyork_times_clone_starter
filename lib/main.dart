@@ -17,12 +17,14 @@ class NewsListPage extends StatefulWidget {
 
 class _NewsListPageState extends State<NewsListPage> {
   List<Article> _newsList = new List();
+  bool isLoading=true;
   void getData() async {
+    isLoading=true;
     http.Response response = await http.get(
         "https://newsapi.org/v2/top-headlines?country=us&apiKey=9da559e0dc0a4b0a9375ca208414ba72");
     setState(() {
       _newsList = News.fromJson(json.decode(response.body)).articles;
-      print(_newsList);
+       isLoading=false;
     });
 
   }
@@ -33,6 +35,12 @@ class _NewsListPageState extends State<NewsListPage> {
   }
   @override
   Widget build(BuildContext context) {
+    if(isLoading)
+      return Scaffold(
+        body: Center(
+            child:CircularProgressIndicator())
+      );
+    else
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
