@@ -1,6 +1,9 @@
+import 'package:newyork_times_clone_starter/image_screen.dart';
 import 'package:newyork_times_clone_starter/news.dart';
 import 'package:flutter/material.dart';
 import 'news.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'image_screen.dart';
 
 class MainScreen extends StatefulWidget {
   final Article article;
@@ -83,7 +86,26 @@ class _MainScreenState extends State<MainScreen> {
             SizedBox(
               height: 15.0,
             ),
-            Image.network(widget.article.urlToImage ?? 'https://via.placeholder.com/300'),
+            GestureDetector(
+                onTap: () async {
+
+                  try {
+
+
+                    Navigator.push(
+                        (context),
+                        MaterialPageRoute(
+                            builder: (context) => ImageScreen(widget.article.urlToImage)));
+                  } on Exception catch (e) {
+                    Alert(
+                        context: context,
+                        title: "network problem",
+                        desc: "Please try after some time")
+                        .show();
+                  }
+                },
+
+                child: Image.network(widget.article.urlToImage ?? 'https://via.placeholder.com/300')),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
