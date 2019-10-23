@@ -105,7 +105,9 @@ class _MainScreenState extends State<MainScreen> {
                   }
                 },
 
-                child: Image.network(widget.article.urlToImage ?? 'https://via.placeholder.com/300')),
+                child: Hero(
+                  tag: 'dash',
+                    child: Image.network(widget.article.urlToImage ?? 'https://via.placeholder.com/300'))),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

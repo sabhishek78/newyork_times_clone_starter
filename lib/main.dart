@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:newyork_times_clone_starter/news.dart';
 import 'list_item.dart';
@@ -33,6 +33,13 @@ class _NewsListPageState extends State<NewsListPage> {
     super.initState();
     getData();
   }
+
+  Future <Null>refreshList() async{
+    await Future.delayed(Duration(seconds: 2));
+    print("Page refreshed");
+    getData();
+    //return null;
+  }
   @override
   Widget build(BuildContext context) {
     if(isLoading)
@@ -51,11 +58,13 @@ class _NewsListPageState extends State<NewsListPage> {
               fontSize: 32, color: Colors.black, fontFamily: 'OldLondon',),
         ),
       ),
-      body: Container(
+      body: RefreshIndicator(
+
           child: ListView.builder(
             itemCount: _newsList.length,
             itemBuilder: (context, index) => ListItem(_newsList[index]),
-          )
+          ),
+              onRefresh: refreshList,
       ),
     );
   }
