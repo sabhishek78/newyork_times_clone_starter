@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'news.dart';
 import 'main_screen.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+
 
 class ListItem extends StatelessWidget {
  // final RefreshController _refreshController = RefreshController();
