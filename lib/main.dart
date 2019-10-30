@@ -84,7 +84,7 @@ class _NewsListPageState extends State<NewsListPage> {
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
-                  fontFamily: '',
+                  //fontFamily: '',
                 ),
               ),
               Text(
@@ -92,7 +92,7 @@ class _NewsListPageState extends State<NewsListPage> {
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
-                  fontFamily: 'OldLondon',
+                 // fontFamily: 'OldLondon',
                 ),
               ),
               Text(
@@ -100,7 +100,7 @@ class _NewsListPageState extends State<NewsListPage> {
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
-                  fontFamily: 'OldLondon',
+                //  fontFamily: 'OldLondon',
                 ),
               ),
               Text(
@@ -108,7 +108,7 @@ class _NewsListPageState extends State<NewsListPage> {
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
-                  fontFamily: 'OldLondon',
+                //  fontFamily: 'OldLondon',
                 ),
               ),
               Text(
@@ -116,7 +116,7 @@ class _NewsListPageState extends State<NewsListPage> {
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
-                  fontFamily: 'OldLondon',
+                 // fontFamily: 'OldLondon',
                 ),
               ),
             ]),

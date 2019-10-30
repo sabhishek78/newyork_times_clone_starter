@@ -24,11 +24,8 @@ class _ImageScreenState extends State<ImageScreen> {
         child: Container(
           // child: Image.network(widget.urlToImage ?? 'https://via.placeholder.com/300'))
           child: PinchZoomImage(
-            image: Hero(
-              tag: 'dash',
-              child: Image.network(
-                  widget.urlToImage ?? 'https://via.placeholder.com/300'),
-            ),
+            image: Image.network(
+                widget.urlToImage ?? 'https://via.placeholder.com/300'),
             zoomedBackgroundColor: Colors.black,
             hideStatusBarWhileZooming: true,
             onZoomStart: () {

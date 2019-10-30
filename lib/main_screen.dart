@@ -19,6 +19,12 @@ class _MainScreenState extends State<MainScreen> {
     List<String> desc = widget.article.description.split("-");
     return desc[0];
   }
+  String calculateArticleTime(){
+    var now = new DateTime.now().hour;
+    var articleHour=DateTime.parse(widget.article.publishedAt).hour;
+    var difference=now-articleHour;
+    return "$difference hours ago";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,9 +111,7 @@ class _MainScreenState extends State<MainScreen> {
                   }
                 },
 
-                child: Hero(
-                  tag: 'dash',
-                    child: Image.network(widget.article.urlToImage ?? 'https://via.placeholder.com/300'))),
+                child: Image.network(widget.article.urlToImage ?? 'https://via.placeholder.com/300')),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -126,7 +130,7 @@ class _MainScreenState extends State<MainScreen> {
                     height: 15.0,
                   ),
                   Text(
-                    widget.article.publishedAt ?? "Unknown",
+                    calculateArticleTime()??"Unknown",
                     style: TextStyle(color: Colors.grey),
                   ),
                   SizedBox(

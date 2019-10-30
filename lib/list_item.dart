@@ -48,7 +48,7 @@ class ListItem extends StatelessWidget {
                   maxLines: 2,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,fontFamily: "Serif"),
                 ),
-                SizedBox(height: 10,),
+               // SizedBox(height: 10,),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -58,12 +58,13 @@ class ListItem extends StatelessWidget {
                         textAlign: TextAlign.start,
                         maxLines: 5,
                         style: TextStyle(
-                            fontStyle: FontStyle.italic, fontSize: 12,fontFamily: "Serif"),
+                             fontSize: 12,fontFamily: "Serif"),
                       ),
                     ),
                     Container(
-                        height: 100,
-                        width: 100,
+                        height: 150,
+                        width: 150,
+                      alignment: Alignment(1.0, -1.0),
                         child: Image.network(article.urlToImage??
                             'https://via.placeholder.com/300'),
                     ),
