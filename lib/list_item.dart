@@ -16,6 +16,17 @@ class ListItem extends StatelessWidget {
     var difference=now-articleHour;
     return "$difference hours ago";
   }
+  String ReadMore(){
+     String temp=article.description;
+     String returnString='';
+     //Text(' [ReadMore..]',style: TextStyle(fontStyle: FontStyle.italic,color: Colors.blue),);
+     List<String> tempStringList=temp.split(' ');
+     for(int i=0;i<10;i++){
+       returnString=returnString+' '+tempStringList[i];
+     }
+     returnString=returnString+'  '+"[READ MORE...]" ;
+     return returnString;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,19 +57,19 @@ class ListItem extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   maxLines: 2,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,fontFamily: "Serif"),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,fontFamily: "Serif"),
                 ),
                // SizedBox(height: 10,),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Expanded(
-                      child: Text(article.description??"Unknown",
+                      child: Text(ReadMore()??"Unknown",
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.start,
                         maxLines: 5,
                         style: TextStyle(
-                             fontSize: 12,fontFamily: "Serif"),
+                             fontSize: 15,fontFamily: "Serif"),
                       ),
                     ),
                     Container(
