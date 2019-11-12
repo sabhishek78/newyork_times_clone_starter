@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'news.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'image_screen.dart';
+import 'package:flutter_share/flutter_share.dart';
 
 class MainScreen extends StatefulWidget {
   final Article article;
@@ -25,7 +26,14 @@ class _MainScreenState extends State<MainScreen> {
     var difference=now-articleHour;
     return "$difference hours ago";
   }
-
+  Future<void> share() async {
+    await FlutterShare.share(
+        title: widget.article.title,
+        text: widget.article.description,
+        linkUrl: widget.article.url,
+        chooserTitle: 'Select App To Share Link',
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
             icon: const Icon(Icons.share),
             color: Colors.black,
             tooltip: 'Share',
-            onPressed: () {},
+            onPressed: share,
           ),
           IconButton(
             icon: const Icon(Icons.more_vert),
