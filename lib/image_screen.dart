@@ -29,10 +29,10 @@ class _ImageScreenState extends State<ImageScreen> {
             zoomedBackgroundColor: Colors.black,
             hideStatusBarWhileZooming: true,
             onZoomStart: () {
-              print('Zoom started');
+           //   print('Zoom started');
             },
             onZoomEnd: () {
-              print('Zoom finished');
+            //  print('Zoom finished');
             },
           ),
         ),

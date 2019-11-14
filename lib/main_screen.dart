@@ -5,6 +5,7 @@ import 'news.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'image_screen.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'list_item.dart';
 
 class MainScreen extends StatefulWidget {
   final Article article;
@@ -119,7 +120,12 @@ class _MainScreenState extends State<MainScreen> {
                   }
                 },
 
-                child: Image.network(widget.article.urlToImage ?? 'https://via.placeholder.com/300')),
+                child: Hero(
+                    createRectTween: (begin, end) {
+                      return CustomRectTween(a: begin, b: end);
+                    },
+                    tag: widget.article.urlToImage,
+                    child: Image.network(widget.article.urlToImage ?? 'https://via.placeholder.com/300'))),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

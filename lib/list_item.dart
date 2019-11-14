@@ -2,8 +2,58 @@ import 'package:flutter/material.dart';
 import 'news.dart';
 import 'main_screen.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+class CustomRectTween extends RectTween {
+  CustomRectTween({this.a, this.b}) : super(begin: a, end: b);
+  final Rect a;
+  final Rect b;
 
+  @override
+  Rect lerp(double t) {
+    Curves.elasticInOut.transform(t);
+    //any curve can be applied here e.g. Curve.elasticOut.transform(t);
+    final verticalDist = Cubic(0.72, 0.15, 0.5, 1.23).transform(t);
 
+    final top = lerpDouble(a.top, b.top, t) * (1 - verticalDist);
+    return Rect.fromLTRB(
+      lerpDouble(a.left, b.left, t),
+      top,
+      lerpDouble(a.right, b.right, t),
+      lerpDouble(a.bottom, b.bottom, t),
+    );
+  }
+
+  double lerpDouble(num a, num b, double t) {
+    if (a == null && b == null) return null;
+    a ??= 0.0;
+    b ??= 0.0;
+    return a + (b - a) * t;
+  }
+}
+class SlideRightRoute extends PageRouteBuilder {
+  final Widget page;
+  SlideRightRoute({this.page})
+      : super(
+    pageBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        ) =>
+    page,
+    transitionsBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,
+        ) =>
+        SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(-1, 0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
+        ),
+  );
+}
 class ListItem extends StatelessWidget {
  // final RefreshController _refreshController = RefreshController();
   ListItem(this.article);
@@ -37,10 +87,7 @@ class ListItem extends StatelessWidget {
             try {
 
 
-              Navigator.push(
-                  (context),
-                  MaterialPageRoute(
-                      builder: (context) => MainScreen(article)));
+              Navigator.push(context, SlideRightRoute(page: MainScreen(article)));
             } on Exception catch (e) {
               Alert(
                   context: context,
@@ -64,7 +111,7 @@ class ListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Expanded(
-                      child: Text(ReadMore()??"Unknown",
+                      child: Text(article.description??"Unknown",
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.start,
                         maxLines: 5,
@@ -72,12 +119,19 @@ class ListItem extends StatelessWidget {
                              fontSize: 15,fontFamily: "Serif"),
                       ),
                     ),
+                    SizedBox(width: 2,),
                     Container(
                         height: 150,
                         width: 150,
                       alignment: Alignment(1.0, -1.0),
-                        child: Image.network(article.urlToImage??
-                            'https://via.placeholder.com/300'),
+                        child: Hero(
+                          createRectTween: (begin, end) {
+                            return CustomRectTween(a: begin, b: end);
+                          },
+                          tag: article.urlToImage,
+                          child: Image.network(article.urlToImage??
+                              'https://via.placeholder.com/300'),
+                        ),
                     ),
                   ],
                 ),
