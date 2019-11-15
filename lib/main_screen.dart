@@ -6,6 +6,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'image_screen.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'list_item.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainScreen extends StatefulWidget {
   final Article article;
@@ -34,6 +35,14 @@ class _MainScreenState extends State<MainScreen> {
         linkUrl: widget.article.url,
         chooserTitle: 'Select App To Share Link',
     );
+  }
+  _launchURL() async {
+    String url = widget.article.url;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -121,9 +130,7 @@ class _MainScreenState extends State<MainScreen> {
                 },
 
                 child: Hero(
-                    createRectTween: (begin, end) {
-                      return CustomRectTween(a: begin, b: end);
-                    },
+                    createRectTween: (begin, end)=> RectTween(begin: begin,end: end) ,
                     tag: widget.article.urlToImage,
                     child: Image.network(widget.article.urlToImage ?? 'https://via.placeholder.com/300'))),
             Padding(
@@ -149,7 +156,14 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   SizedBox(
                     height: 15.0,
-                  )],
+                  ),
+                  RaisedButton(
+                    padding: const EdgeInsets.all(8.0),
+                    textColor: Colors.white,
+                    color: Colors.blue,
+                    onPressed: _launchURL,
+                    child: new Text("Read More..."),
+                  ),],
               ),
             )
             ,

@@ -125,9 +125,7 @@ class ListItem extends StatelessWidget {
                         width: 150,
                       alignment: Alignment(1.0, -1.0),
                         child: Hero(
-                          createRectTween: (begin, end) {
-                            return CustomRectTween(a: begin, b: end);
-                          },
+                          createRectTween: (begin, end)=> RectTween(begin: begin,end: end) ,
                           tag: article.urlToImage,
                           child: Image.network(article.urlToImage??
                               'https://via.placeholder.com/300'),
