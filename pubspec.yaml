@@ -26,5 +26,7 @@ flutter:
     - family: OldLondon
       fonts:
         - asset: assets/OldLondon.ttf
-
+    - family: ProductSans
+      fonts:
+        - asset: assets/ProductSans.ttf
 

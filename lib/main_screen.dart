@@ -165,8 +165,8 @@ class _MainScreenState extends State<MainScreen> {
                     displayArticleContent()??"Unknown",
                     style: TextStyle(
                         color: Colors.black,
-                        fontStyle: FontStyle.normal,
-                        fontFamily: 'Open Sans',
+                       // fontStyle: FontStyle.ProductSans,
+                        fontFamily: 'ProductSans',
                         fontSize: 20),
                   ),
                   SizedBox(
