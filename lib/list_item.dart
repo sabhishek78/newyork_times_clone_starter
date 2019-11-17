@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'news.dart';
 import 'main_screen.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-
-class SlideRightRoute extends PageRouteBuilder {
+class FadeRoute extends PageRouteBuilder {
   final Widget page;
-  SlideRightRoute({this.page})
+  FadeRoute({this.page})
       : super(
     pageBuilder: (
         BuildContext context,
@@ -19,15 +18,13 @@ class SlideRightRoute extends PageRouteBuilder {
         Animation<double> secondaryAnimation,
         Widget child,
         ) =>
-        SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(-1, 0),
-            end: Offset.zero,
-          ).animate(animation),
+        FadeTransition(
+          opacity: animation,
           child: child,
         ),
   );
 }
+
 class ListItem extends StatelessWidget {
  // final RefreshController _refreshController = RefreshController();
   ListItem(this.article);
@@ -51,7 +48,7 @@ class ListItem extends StatelessWidget {
             try {
 
 
-              Navigator.push(context, SlideRightRoute(page: MainScreen(article)));
+              Navigator.push(context, FadeRoute(page: MainScreen(article)));
             } on Exception catch (e) {
               Alert(
                   context: context,
