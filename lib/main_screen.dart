@@ -44,6 +44,10 @@ class _MainScreenState extends State<MainScreen> {
       throw 'Could not launch $url';
     }
   }
+  String displayArticleContent(){
+    List<String> temp=widget.article.content.split('[');
+    return temp[0];
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,6 +157,17 @@ class _MainScreenState extends State<MainScreen> {
                   Text(
                     calculateArticleTime()??"Unknown",
                     style: TextStyle(color: Colors.grey),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Text(
+                    displayArticleContent()??"Unknown",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontStyle: FontStyle.normal,
+                        fontFamily: 'Open Sans',
+                        fontSize: 20),
                   ),
                   SizedBox(
                     height: 15.0,

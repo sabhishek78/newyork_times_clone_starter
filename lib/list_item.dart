@@ -2,33 +2,7 @@ import 'package:flutter/material.dart';
 import 'news.dart';
 import 'main_screen.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-class CustomRectTween extends RectTween {
-  CustomRectTween({this.a, this.b}) : super(begin: a, end: b);
-  final Rect a;
-  final Rect b;
 
-  @override
-  Rect lerp(double t) {
-    Curves.elasticInOut.transform(t);
-    //any curve can be applied here e.g. Curve.elasticOut.transform(t);
-    final verticalDist = Cubic(0.72, 0.15, 0.5, 1.23).transform(t);
-
-    final top = lerpDouble(a.top, b.top, t) * (1 - verticalDist);
-    return Rect.fromLTRB(
-      lerpDouble(a.left, b.left, t),
-      top,
-      lerpDouble(a.right, b.right, t),
-      lerpDouble(a.bottom, b.bottom, t),
-    );
-  }
-
-  double lerpDouble(num a, num b, double t) {
-    if (a == null && b == null) return null;
-    a ??= 0.0;
-    b ??= 0.0;
-    return a + (b - a) * t;
-  }
-}
 class SlideRightRoute extends PageRouteBuilder {
   final Widget page;
   SlideRightRoute({this.page})
@@ -66,17 +40,7 @@ class ListItem extends StatelessWidget {
     var difference=now-articleHour;
     return "$difference hours ago";
   }
-  String ReadMore(){
-     String temp=article.description;
-     String returnString='';
-     //Text(' [ReadMore..]',style: TextStyle(fontStyle: FontStyle.italic,color: Colors.blue),);
-     List<String> tempStringList=temp.split(' ');
-     for(int i=0;i<10;i++){
-       returnString=returnString+' '+tempStringList[i];
-     }
-     returnString=returnString+'  '+"[READ MORE...]" ;
-     return returnString;
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +70,7 @@ class ListItem extends StatelessWidget {
                   maxLines: 2,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,fontFamily: "Serif"),
                 ),
-               // SizedBox(height: 10,),
+                SizedBox(height: 10,),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
