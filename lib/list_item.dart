@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'news.dart';
-import 'main_screen.dart';
+import 'news_detail.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 class FadeRoute extends PageRouteBuilder {
   final Widget page;
@@ -48,7 +48,7 @@ class ListItem extends StatelessWidget {
             try {
 
 
-              Navigator.push(context, FadeRoute(page: MainScreen(article)));
+              Navigator.push(context, FadeRoute(page: NewsDetailScreen(article)));
             } on Exception catch (e) {
               Alert(
                   context: context,

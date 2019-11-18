@@ -8,18 +8,18 @@ import 'package:flutter_share/flutter_share.dart';
 import 'list_item.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class MainScreen extends StatefulWidget {
+class NewsDetailScreen extends StatefulWidget {
   final Article article;
 
-  MainScreen(this.article);
+  NewsDetailScreen(this.article);
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _NewsDetailScreenState createState() => _NewsDetailScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _NewsDetailScreenState extends State<NewsDetailScreen> {
   String removeSourceFromDescription() {
-    List<String> desc = widget.article.description.split("-");
+    List<String> desc = widget.article.title.split("-");
     return desc[0];
   }
   String calculateArticleTime(){
@@ -46,6 +46,11 @@ class _MainScreenState extends State<MainScreen> {
   }
   String displayArticleContent(){
     List<String> temp=widget.article.content.split('[');
+    return temp[0];
+  }
+  String imageCaptionText(){
+    List<String> temp=widget.article.content.split('.');
+    print(widget.article.content);
     return temp[0];
   }
   @override
@@ -90,7 +95,7 @@ class _MainScreenState extends State<MainScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: <Widget>[Text(
-                  widget.article.title??"Unknown",
+                  removeSourceFromDescription()??"Unknown",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -103,7 +108,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   Text(
 
-                    removeSourceFromDescription()??"Unknown",
+                    widget.article.description??"Unknown",
                     textAlign: TextAlign.left,
 
                     style: TextStyle(fontStyle: FontStyle.normal, fontSize: 30),
@@ -141,13 +146,23 @@ class _MainScreenState extends State<MainScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[SizedBox(
+                children: <Widget>[ SizedBox(
+                  height: 5.0,
+                ),
+                  Text(
+                    imageCaptionText() ?? "Unknown",
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 15),
+                  ),
+                  SizedBox(
                   height: 15.0,
                 ),
                   Text(
                     widget.article.author ?? "Unknown",
                     style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.black,
                         fontStyle: FontStyle.italic,
                         fontSize: 15),
                   ),
@@ -156,7 +171,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   Text(
                     calculateArticleTime()??"Unknown",
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Colors.red),
                   ),
                   SizedBox(
                     height: 15.0,
