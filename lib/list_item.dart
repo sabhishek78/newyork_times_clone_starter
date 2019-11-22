@@ -87,7 +87,7 @@ class ListItem extends StatelessWidget {
                       alignment: Alignment(1.0, -1.0),
                         child: Hero(
                           createRectTween: (begin, end)=> RectTween(begin: begin,end: end) ,
-                          tag: article.urlToImage,
+                          tag: article.publishedAt,
                           child: Image.network(article.urlToImage??
                               'https://via.placeholder.com/300'),
                         ),

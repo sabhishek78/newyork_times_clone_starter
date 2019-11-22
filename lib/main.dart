@@ -15,53 +15,25 @@ class NewsListPage extends StatefulWidget {
 }
 
 class _NewsListPageState extends State<NewsListPage> {
-  List<Article> _newsListIndia = new List();
-  List<Article> _newsListUSA = new List();
-  List<Article> _newsListAustralia = new List();
-  List<Article> _newsListNewzealand = new List();
-  List<Article> _newsListIndonesia = new List();
-  bool isLoading = true;
+  List<Article> _newsList = new List();
 
-  void getData() async {
-    isLoading = true;
-    http.Response responseIndia = await http.get(
-        "https://newsapi.org/v2/top-headlines?country=in&apiKey=9da559e0dc0a4b0a9375ca208414ba72");
-    http.Response responseUSA = await http.get(
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=9da559e0dc0a4b0a9375ca208414ba72");
-    http.Response responseAustralia = await http.get(
-        "https://newsapi.org/v2/top-headlines?country=au&apiKey=9da559e0dc0a4b0a9375ca208414ba72");
-    http.Response responseNewzealand = await http.get(
-        "https://newsapi.org/v2/top-headlines?country=nz&apiKey=9da559e0dc0a4b0a9375ca208414ba72");
-    http.Response responseIndonesia = await http.get(
-        "https://newsapi.org/v2/top-headlines?country=id&apiKey=9da559e0dc0a4b0a9375ca208414ba72");
-    setState(() {
-      _newsListIndia = News.fromJson(json.decode(responseIndia.body)).articles;
-      _newsListUSA = News.fromJson(json.decode(responseUSA.body)).articles;
-      _newsListAustralia = News.fromJson(json.decode(responseAustralia.body)).articles;
-      _newsListNewzealand = News.fromJson(json.decode(responseNewzealand.body)).articles;
-      _newsListIndonesia = News.fromJson(json.decode(responseIndonesia.body)).articles;
-      isLoading = false;
-    });
-  }
+  //bool isLoading = true;
+
 
   @override
   void initState() {
     super.initState();
-    getData();
+
   }
 
   Future<Null> refreshList() async {
     await Future.delayed(Duration(seconds: 2));
     print("Page refreshed");
-    getData();
-    //return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading)
-      return Scaffold(body: Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),)));
-    else
+
       return DefaultTabController(
         length: 5,
         child: Scaffold(
@@ -95,60 +67,96 @@ class _NewsListPageState extends State<NewsListPage> {
                  // fontFamily: 'OldLondon',
                 ),
               ),
-              Text(
-                "USA",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                //  fontFamily: 'OldLondon',
-                ),
-              ),
-              Text(
-                "NewZealand",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                //  fontFamily: 'OldLondon',
-                ),
-              ),
-              Text(
-                "Indonesia",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                 // fontFamily: 'OldLondon',
-                ),
-              ),
+                  Text(
+                    "USA",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      // fontFamily: 'OldLondon',
+                    ),
+                  ),
+                  Text(
+                    "NewZeaLand",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      // fontFamily: 'OldLondon',
+                    ),
+                  ),
+                  Text(
+                    "Indonesia",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      // fontFamily: 'OldLondon',
+                    ),
+                  ),
             ]),
           ),
           body: RefreshIndicator(
             child: TabBarView(
               children: <Widget>[
-                ListView.builder(
-                  itemCount: _newsListIndia.length,
-                  itemBuilder: (context, index) => ListItem(_newsListIndia[index]),
-                ),
-                ListView.builder(
-                  itemCount: _newsListAustralia.length,
-                  itemBuilder: (context, index) => ListItem(_newsListAustralia[index]),
-                ),
-                ListView.builder(
-                  itemCount: _newsListUSA.length,
-                  itemBuilder: (context, index) => ListItem(_newsListUSA[index]),
-                ),
-                ListView.builder(
-                  itemCount: _newsListNewzealand.length,
-                  itemBuilder: (context, index) => ListItem(_newsListNewzealand[index]),
-                ),
-                ListView.builder(
-                  itemCount: _newsListIndonesia.length,
-                  itemBuilder: (context, index) => ListItem(_newsListIndonesia[index]),
-                ),
+                new NewsList(countryCode: 'in',countryName: 'India'),
+                new NewsList(countryCode: 'au',countryName: 'Australia'),
+                new NewsList(countryCode: 'us',countryName: 'USA'),
+                new NewsList(countryCode: 'nz',countryName: 'NewZeaLand'),
+                new NewsList(countryCode: 'id',countryName: 'Indonesia'),
               ],
             ),
+
             onRefresh: refreshList,
           ),
         ),
       );
+  }
+}
+
+class NewsList extends StatefulWidget {
+  final String countryName;
+
+ final  String countryCode;
+
+  const NewsList({ this.countryName, this.countryCode})  ;
+  @override
+  _NewsListState createState() => _NewsListState();
+}
+
+class _NewsListState extends State<NewsList> {
+  bool isLoading=true;
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  List<Article> _newsList;
+
+  void getData() async {
+    isLoading = true;
+    http.Response response = await http.get(
+        "https://newsapi.org/v2/top-headlines?country=${widget.countryCode}&apiKey=9da559e0dc0a4b0a9375ca208414ba72");
+
+    setState(() {
+      _newsList = News.fromJson(json.decode(response.body)).articles;
+
+      isLoading = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return isLoading ? Container(
+        height: 50.0,
+        width: 50.0,
+        child:
+        Center(
+          child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(Colors.black),
+              strokeWidth: 5.0),
+        )
+    ): ListView.builder(
+      itemCount: _newsList.length,
+      itemBuilder: (context, index) => ListItem(_newsList[index]),
+    );
   }
 }

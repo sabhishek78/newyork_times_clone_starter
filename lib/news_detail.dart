@@ -141,7 +141,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                 child: Hero(
                     createRectTween: (begin, end)=> RectTween(begin: begin,end: end) ,
                     tag: widget.article.urlToImage,
-                    child: Image.network(widget.article.urlToImage ?? 'https://via.placeholder.com/300'))),
+                    child: Image.network(widget.article.publishedAt ?? 'https://via.placeholder.com/300'))),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
