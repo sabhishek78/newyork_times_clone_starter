@@ -95,7 +95,7 @@ class ListItem extends StatelessWidget {
                   ],
                 ),
                 Row(
-                //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               //  mainAxisAlignment: MainAxisAlignment.
                   children: <Widget>[
                     Expanded(
                        flex: 3,

@@ -49,49 +49,67 @@ class _NewsListPageState extends State<NewsListPage> {
               ),
             ),
             bottom: TabBar(
+              unselectedLabelColor: Colors.blue,
+              indicatorColor: Colors.black,
                 isScrollable:true,
                 tabs: <Widget>[
-              Text(
-                "India",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  //fontFamily: '',
+              Container(
+                height: 30,
+                child: Text(
+                  "India",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    //fontFamily: '',
+                  ),
                 ),
               ),
-              Text(
-                "Australia",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                 // fontFamily: 'OldLondon',
+              Container(
+                height: 30,
+                child: Text(
+                  "Australia",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                   // fontFamily: 'OldLondon',
+                  ),
                 ),
               ),
-                  Text(
-                    "USA",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      // fontFamily: 'OldLondon',
+                  Container(
+                    height: 30,
+                    child: Text(
+                      "USA",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        // fontFamily: 'OldLondon',
+                      ),
                     ),
                   ),
-                  Text(
-                    "NewZeaLand",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      // fontFamily: 'OldLondon',
+                  Container(
+                    height: 30,
+                    child: Text(
+                      "New ZeaLand",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        // fontFamily: 'OldLondon',
+                      ),
                     ),
                   ),
-                  Text(
-                    "Indonesia",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      // fontFamily: 'OldLondon',
+                  Container(
+                    height: 30,
+                    child: Text(
+                      "Indonesia",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        // fontFamily: 'OldLondon',
+                      ),
                     ),
                   ),
             ]),
+            
           ),
           body: RefreshIndicator(
             child: TabBarView(
@@ -99,7 +117,7 @@ class _NewsListPageState extends State<NewsListPage> {
                 new NewsList(countryCode: 'in',countryName: 'India'),
                 new NewsList(countryCode: 'au',countryName: 'Australia'),
                 new NewsList(countryCode: 'us',countryName: 'USA'),
-                new NewsList(countryCode: 'nz',countryName: 'NewZeaLand'),
+                new NewsList(countryCode: 'nz',countryName: 'New ZeaLand'),
                 new NewsList(countryCode: 'id',countryName: 'Indonesia'),
               ],
             ),
@@ -121,11 +139,15 @@ class NewsList extends StatefulWidget {
   _NewsListState createState() => _NewsListState();
 }
 
-class _NewsListState extends State<NewsList> {
+class _NewsListState extends State<NewsList> with AutomaticKeepAliveClientMixin{
+  @override
+  bool get wantKeepAlive => true;
   bool isLoading=true;
+
   @override
   void initState() {
     super.initState();
+
     getData();
   }
 
